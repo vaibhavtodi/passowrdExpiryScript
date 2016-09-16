@@ -1,0 +1,55 @@
+
+----------------------------------------
+2016,09,15 16:54:43  ----   DN:: uid=xdeeproot,ou=People,dc=maxhypermarkets,dc=com
+Passwd Last Updated: 2016,09,15 10:31:50
+Days to Expire: 2
+Expires in (Date): 2016,09,17 
+----------------------------------------
+----------------------------------------
+2016,09,15 16:54:43  ----   DN:: uid=yyuser,ou=People,dc=maxhypermarkets,dc=com
+Passwd Last Updated: 2016,09,15 16:53:42
+Days to Expire: 1
+Expires in (Date): 2016,09,16 
+----------------------------------------
+----------------------------------------
+2016,09,15 16:55:31  ----   DN:: uid=xdeeproot,ou=People,dc=maxhypermarkets,dc=com
+Passwd Last Updated: 2016,09,15 10:31:50
+Days to Expire: 2
+Expires in (Date): 2016,09,17 
+----------------------------------------
+----------------------------------------
+2016,09,15 16:55:32  ----   DN:: uid=yyuser,ou=People,dc=maxhypermarkets,dc=com
+Passwd Last Updated: 2016,09,15 16:53:42
+Days to Expire: 0
+Expires in (Date): 2016,09,15 
+----------------------------------------
+/usr/local/rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/rubygems/core_ext/kernel_require.rb:55:in `require': cannot load such file -- net-ldap (LoadError)
+	from /usr/local/rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/rubygems/core_ext/kernel_require.rb:55:in `require'
+	from /usr/local/src/password_policy_script/password_expiry.rb:1:in `<main>'
+/usr/local/rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/rubygems/core_ext/kernel_require.rb:55:in `require': cannot load such file -- net-ldap (LoadError)
+	from /usr/local/rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/rubygems/core_ext/kernel_require.rb:55:in `require'
+	from /usr/local/src/password_policy_script/password_expiry.rb:3:in `<main>'
+----------------------------------------
+2016,09,15 18:03:02  ----   DN:: uid=xdeeproot,ou=People,dc=maxhypermarkets,dc=com
+Passwd Last Updated: 2016,09,15 10:31:50
+Days to Expire: 2
+Expires in (Date): 2016,09,17 
+----------------------------------------
+----------------------------------------
+2016,09,15 18:03:03  ----   DN:: uid=yyuser,ou=People,dc=maxhypermarkets,dc=com
+Passwd Last Updated: 2016,09,15 16:53:42
+Days to Expire: 0
+Expires in (Date): 2016,09,15 
+----------------------------------------
+----------------------------------------
+2016,09,15 23:45:03  ----   DN:: uid=xdeeproot,ou=People,dc=maxhypermarkets,dc=com
+Passwd Last Updated: 2016,09,15 10:31:50
+Days to Expire: 2
+Expires in (Date): 2016,09,17 
+----------------------------------------
+----------------------------------------
+2016,09,15 23:45:03  ----   DN:: uid=yyuser,ou=People,dc=maxhypermarkets,dc=com
+Passwd Last Updated: 2016,09,15 16:53:42
+Days to Expire: 0
+Expires in (Date): 2016,09,15 
+----------------------------------------
