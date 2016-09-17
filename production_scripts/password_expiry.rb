@@ -41,13 +41,14 @@ ldap.search( :base => treebase, :filter => filter ) do | entry |
 
             if ((willExpire - currDate) == -1)
                     if entry.respond_to? :accountStatus
-                           puts "Setting to NO-ACCESS"
-                           ldap.replace_attribute entry.dn, :accountStatus, "no_access"
+                           puts "Setting to NO-ACCESS (Replacing)"
+                           result = ldap.replace_attribute(entry.dn, :accountStatus, "noaccess")
                     else
-                           puts "Setting to NO-ACCESS"
-                           ldap.add_attribute entry.dn, :accountStatus, "no_access"
+                           puts "Setting to NO-ACCESS (Adding)"
+                           result = ldap.add_attribute(entry.dn, :accountStatus, "noaccess")
                     end
             end
+            #puts "Operation Result is ::: #{result}"
             puts "----------------------------------------"
 
             if ((willExpire - currDate) <= 3) && ((willExpire - currDate) >= 0)
@@ -63,11 +64,11 @@ ldap.search( :base => treebase, :filter => filter ) do | entry |
                 Pony.mail(
                             :to => entry.mail.first.to_s, 
                             :via => :smtp,
-                            :via_options => {   :address => '127.0.0.1',
+                            :via_options => {   :address => 'IP_ADDR',
                                                 :enable_starttls_auto => false,
-                                                :port => '2500'
+                                                :port => 'SMTP_PORT'
                                             },
-                            :from => 'admin@maxhypermarkets.com', 
+                            :from => '_MAIL_ID', 
                             :subject => 'Reg: Password Expiry Warning', 
                             :body => mailbody
                           )
