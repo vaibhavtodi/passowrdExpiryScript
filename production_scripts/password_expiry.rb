@@ -32,45 +32,46 @@ ldap.search( :base => treebase, :filter => filter ) do | entry |
             willExpire = (Time.local(dt[0].to_i,dt[1].to_i,dt[2].to_i) + (entry.shadowMax.first.to_i * 86400)).strftime("%Y%m%d").to_i
         end
 
-        if ((willExpire - currDate) <= 3) && ((willExpire - currDate) >= 0)
-	    puts "----------------------------------------"
+        if ((willExpire - currDate) <= 3) && ((willExpire - currDate) >= -1)
+            puts "----------------------------------------"
             puts "#{Time.now.strftime("%Y,%m,%d %H:%M:%S")}  ----   DN:: #{entry.dn}"
             puts "Passwd Last Updated: #{Time.at(("#{inSecs}").to_i).strftime("%Y,%m,%d %H:%M:%S")}"
             puts "Days to Expire: #{entry.shadowMax.first}"
             puts "Expires in (Date): #{(Time.local(dt[0].to_i,dt[1].to_i,dt[2].to_i) + (entry.shadowMax.first.to_i * 86400)).strftime("%Y,%m,%d")} "   
-	    
-            mailtosend = Liquid::Template.parse(pwd_exp_template)
 
             if ((willExpire - currDate) == -1)
                     if entry.respond_to? :accountStatus
-			   puts "Setting to NO-ACCESS"
+                           puts "Setting to NO-ACCESS"
                            ldap.replace_attribute entry.dn, :accountStatus, "no_access"
                     else
-			   puts "Setting to NO-ACCESS"
+                           puts "Setting to NO-ACCESS"
                            ldap.add_attribute entry.dn, :accountStatus, "no_access"
                     end
             end
-	    puts "----------------------------------------"
+            puts "----------------------------------------"
 
-            mailbody = mailtosend.render(
-                                            'pwdLastUpdate' => "#{Time.at(("#{inSecs}").to_i).strftime("%Y,%m,%d")}",
-                                            'user' => "#{entry.uid.first}",
-                                            'expiryDate' => "#{(Time.local(dt[0].to_i,dt[1].to_i,dt[2].to_i) + (entry.shadowMax.first.to_i * 86400)).strftime("%Y,%m,%d")}",
-                                            'shadowMax' => "#{entry.shadowMax.first.to_i}",
-                                            'days_left' => willExpire - currDate 
-                                        )
-            Pony.mail(
-                        :to => entry.mail.first.to_s, 
-                        :via => :smtp,
-                        :via_options => {
-                                            :address => 'IP_ADDR',
-                                            :enable_starttls_auto => false,
-                                            :port => 'SMTP_PORT'
-                                        },
-                        :from => '_MAIL_ID', 
-                        :subject => 'Reg: Password Expiry Warning', 
-                        :body => mailbody
-                      )
+            if ((willExpire - currDate) <= 3) && ((willExpire - currDate) >= 0)
+                
+                mailtosend = Liquid::Template.parse(pwd_exp_template)
+
+                mailbody = mailtosend.render(   'pwdLastUpdate' => "#{Time.at(("#{inSecs}").to_i).strftime("%Y,%m,%d")}",
+                                                'user' => "#{entry.uid.first}",
+                                                'expiryDate' => "#{(Time.local(dt[0].to_i,dt[1].to_i,dt[2].to_i) + (entry.shadowMax.first.to_i * 86400)).strftime("%Y,%m,%d")}",
+                                                'shadowMax' => "#{entry.shadowMax.first.to_i}",
+                                                'days_left' => "#{willExpire - currDate}"  
+                                            )
+                Pony.mail(
+                            :to => entry.mail.first.to_s, 
+                            :via => :smtp,
+                            :via_options => {   :address => '127.0.0.1',
+                                                :enable_starttls_auto => false,
+                                                :port => '2500'
+                                            },
+                            :from => 'admin@maxhypermarkets.com', 
+                            :subject => 'Reg: Password Expiry Warning', 
+                            :body => mailbody
+                          )
+            end
         end
     #else
     #    puts "#{Time.now.strftime("%Y,%m,%d %H:%M:%S")} -- Ignoring the Users --  DN:: #{entry.dn}, shadowMax:: #{entry.shadowMax.first}"
