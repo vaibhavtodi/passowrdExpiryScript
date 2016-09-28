@@ -12,7 +12,7 @@ ldap = Net::LDAP.new :host => "IP_ADDR", :port => 389,
                                 :password => "ROOT_PW"
                               }
 
-PWD_EXP_MAIL = "/usr/local/src/password_policy_script/template/passwd_expiry.liquid"
+PWD_EXP_MAIL = "/usr/local/src/passowrdExpiryScript/template/passwd_expiry.liquid"
 pwd_exp_template = File.read(PWD_EXP_MAIL)
 
 treebase = 'ENTER THE TREE_BASE -- eq: ou= ,dc= ,dc='
